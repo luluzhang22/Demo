@@ -20,7 +20,6 @@ public class Searching {
         System.out.println(FindFirstOccurance(new int[] {1,2,2,2,2,2,4,5,6},2));
         System.out.println(FindLastOccurance(new int[] {1,1,2},1));
 
-//        FindPairSumEqualRest(arr);
         System.out.println(FindFirstBiggerThanK(new int[] {10},8));
         System.out.println(Ceiling(new int[] {10,15},9));
         System.out.println(Floor(new int[] {1,5,7},9));
