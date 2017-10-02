@@ -46,7 +46,8 @@ public class Searching {
         int high = arr.length-1;
 
         while (low<=high){
-            int mid = (low + high)/2;
+            /**int mid = (low + high)/2;  may overflow**/
+            int mid = low + (high - low)/2;
             if(arr[mid] == x){
                 System.out.println("Found");
                 return true;
