@@ -1,9 +1,6 @@
 package info6205Algorithms.class5;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class BinaryTree {
     public static void main(String[] args){
@@ -27,12 +24,9 @@ public class BinaryTree {
         tree.root.left.left.left.right = new Node(12);
         System.out.println("---print left view---");
         tree.printLeftView();
-
-        //problem? what is the right view ???
         System.out.println("---print right view---");
         tree.printRightView();
 
-        //?what is the right order?
         System.out.println("---print top view---");
         tree.printTopView();
     }
@@ -83,24 +77,53 @@ class Tree{
         root.right.right.right = new Node(11);
     }
 
-
-    public void printTopView(){
-        HashMap<Integer,Integer> map = new HashMap<>();
-        printTopView(root,0,map);
-
-        System.out.println();
+    class QItem{
+        public Node node;
+        public int distance;
+        QItem(Node node,int distance){
+            this.node = node;
+            this.distance = distance;
+        }
     }
 
-    private void printTopView(Node node,int key, HashMap<Integer,Integer> map){
-        if(node != null){
-            if(!map.containsKey(key)) {
-                map.put(key, node.data);
-                System.out.print(node.data + ",");
-                printTopView(node.left,key-1,map);
-                printTopView(node.right,key+1,map);
+    public void printTopView(){
+        Set<Integer> set = new HashSet<>();
+        Queue<QItem> queue = new LinkedList<>();
+        QItem qItem = new QItem(root,0);
+        queue.add(qItem);
+        while (queue.size()!=0){
+            qItem = queue.remove();
+            int key = qItem.distance;
+            Node node = qItem.node;
+            if(!set.contains(key)){
+                set.add(key);
+                System.out.print(node.data+"  ");
+            }
+            if (node.left!=null){
+                queue.add(new QItem(node.left,key-1));
+            }
+            if(node.right!=null){
+                queue.add(new QItem(node.right,key+1));
             }
         }
     }
+    /**public void printTopView(){
+     HashMap<Integer,Integer> map = new HashMap<>();
+     printTopView(root,0,map);
+
+     System.out.println();
+     }
+
+     private void printTopView(Node node,int key, HashMap<Integer,Integer> map){
+     if(node != null){
+     if(!map.containsKey(key)) {
+     map.put(key, node.data);
+     System.out.print(node.data + ",");
+     printTopView(node.left,key-1,map);
+     printTopView(node.right,key+1,map);
+     }
+     }
+     }**/
 
     //data -> left -> right
     public void preOrder(){
